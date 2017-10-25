@@ -1,0 +1,63 @@
+3V 11 �	LGG Liege	TNT Airways	10:00:00			77X
+3V 11 �	LGG Liege	TNT Airways	10:00:00			77X
+4M 6302	MIA Miami	Lan Argentina	14:03:00	T-8	C42	757
+4M 6302	MIA Miami	Lan Argentina	14:03:00	T-8	C42	757
+4M 6357	EZE Buenos Aires	Lan Argentina	22:00:00	T-8	B12	777
+4M 6357	EZE Buenos Aires	Lan Argentina	22:00:00	T-8	B12	777
+4O 2993	MEX Mexico City	Interjet	00:50:00			320
+BA 4310	LAX Los Angeles	British Airways	06:00:00	T-8	B12	32B
+BA 4310	LAX Los Angeles	British Airways	06:00:00	T-8	B12	32B
+BA 4312	LAX Los Angeles	British Airways	19:45:00	T-8	B1	32B
+BA 4319	LAX Los Angeles	British Airways	11:00:00	T-8	C40	32B
+BA 4319	LAX Los Angeles	British Airways	11:00:00	T-8	C40	32B
+BA 4321	LAX Los Angeles	British Airways	18:45:00	T-8	C44	32B
+BA 4326	LAX Los Angeles	British Airways	08:00:00	T-8	B3	32B
+5C 932 �	LGG Liege	C.A.L. Cargo Airlines	10:15:00			
+5X 1605	MCO Orlando	UPS	11:04:00			
+5X 1605	MCO Orlando	UPS	11:04:00			
+5X 2215	SDF Louisville	UPS	09:53:00			
+AB 4502	LAX Los Angeles	Air Berlin	17:30:00	T-8	C42	32B
+AB 4507	SAN San Diego	Air Berlin	17:20:00	T-8	C46	738
+AB 4509	SFO San Francisco	Air Berlin	17:45:00	T-8	C39	32B
+AB 4513	SEA Seattle	Air Berlin	18:35:00	T-8	C41	738
+AB 4518	YYZ Toronto	Air Berlin	20:15:00	T-8	C31D	CR7
+AB 4523	MIA Miami	Air Berlin	17:00:00	T-8	C44	757
+AB 4523	MIA Miami	Air Berlin	17:00:00	T-8	C44	757
+AB 4527	AUS Austin	Air Berlin	17:00:00	T-8	B1	738
+AF 11	CDG Paris	Air France	21:50:00	T-1		3V 11 �	LGG Liege	TNT Airways	10:00:00			77X
+3V 11 �	LGG Liege	TNT Airways	10:00:00			77X
+4M 6302	MIA Miami	Lan Argentina	14:03:00	T-8	C42	757
+4M 6302	MIA Miami	Lan Argentina	14:03:00	T-8	C42	757
+4M 6357	EZE Buenos Aires	Lan Argentina	22:00:00	T-8	B12	777
+4M 6357	EZE Buenos Aires	Lan Argentina	22:00:00	T-8	B12	777
+4O 2993	MEX Mexico City	Interjet	00:50:00			320
+BA 4310	LAX Los Angeles	British Airways	06:00:00	T-8	B12	32B
+BA 4310	LAX Los Angeles	British Airways	06:00:00	T-8	B12	32B
+BA 4312	LAX Los Angeles	British Airways	19:45:00	T-8	B1	32B
+BA 4319	LAX Los Angeles	British Airways	11:00:00	T-8	C40	32B
+BA 4319	LAX Los Angeles	British Airways	11:00:00	T-8	C40	32B
+BA 4321	LAX Los Angeles	British Airways	18:45:00	T-8	C44	32B
+BA 4326	LAX Los Angeles	British Airways	08:00:00	T-8	B3	32B
+5C 932 �	LGG Liege	C.A.L. Cargo Airlines	10:15:00			
+5X 1605	MCO Orlando	UPS	11:04:00			
+5X 1605	MCO Orlando	UPS	11:04:00			
+5X 2215	SDF Louisville	UPS	09:53:00			
+AB 4502	LAX Los Angeles	Air Berlin	17:30:00	T-8	C42	32B
+AB 4507	SAN San Diego	Air Berlin	17:20:00	T-8	C46	738
+AB 4509	SFO San Francisco	Air Berlin	17:45:00	T-8	C39	32B
+AB 4513	SEA Seattle	Air Berlin	18:35:00	T-8	C41	738
+AB 4518	YYZ Toronto	Air Berlin	20:15:00	T-8	C31D	CR7
+AB 4523	MIA Miami	Air Berlin	17:00:00	T-8	C44	757
+AB 4523	MIA Miami	Air Berlin	17:00:00	T-8	C44	757
+AB 4527	AUS Austin	Air Berlin	17:00:00	T-8	B1	738
+AF 11	CDG Paris	Air France	21:50:00	T-1		77W
+AF 2078	PHX Phoenix	Air France	17:10:00	T-4	B37	73H
+AF 2092	SFO San Francisco	Air France	15:15:00	T-4	B34	75W
+AF 2146	MIA Miami	Air France	18:45:00	T-2	C63	M88
+AF 2192	DEN Denver	Air France	18:15:00	T-2	C62	73H
+AF 2278	MSY New Orleans	Air France	18:29:00	T-4	B47	31977W
+AF 2078	PHX Phoenix	Air France	17:10:00	T-4	B37	73H
+AF 2092	SFO San Francisco	Air France	15:15:00	T-4	B34	75W
+AF 2146	MIA Miami	Air France	18:45:00	T-2	C63	M88
+AF 2192	DEN Denver	Air France	18:15:00	T-2	C62	73H
+AF 2278	MSY New Orleans	Air France	18:29:00	T-4	B47	319
