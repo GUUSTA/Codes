@@ -7,32 +7,12 @@ typedef struct{
   int inicio;
 } Fila;
 
-void inicializaFila();
-void inserir();
-int cheio();
-int vazio();
-void imprimeFila();
-
-int main() {
-
-    Fila minhafila;
-    int temp;
-
-    inicializaFila(&minhafila);
-
-    inserir(&minhafila, 19);
-    inserir(&minhafila, 28);
-    inserir(&minhafila, 30);
-    inserir(&minhafila, 12);
-    imprimeFila(&minhafila);
-    temp=remover(&minhafila);
-    temp=remover(&minhafila);
-    inserir(&minhafila, 51);
-    inserir(&minhafila, 48);
-    imprimeFila(&minhafila);
-
-    return 0;
-}
+//void inicializaFila();
+//int cheio();
+//int vazio();
+//void inserir();
+//int remover();
+//void imprimeFila();
 
 void inicializaFila(Fila *p){
   p->topo=0;
@@ -60,14 +40,6 @@ void inserir(Fila *p, int valor) {
     p->topo++;
 }
 
-void imprimeFila(Fila *p){
-  int i;
-  for(i=0; i<p->topo; i++){
-    printf("%d ", p->vetor[i]);
-  }
-  printf("\n");
-}
-
 int remover(Fila *p){
     if(vazio(p) == 1) {
         printf("ERRO, VAZIO");
@@ -75,7 +47,39 @@ int remover(Fila *p){
     }
 
     p->inicio++;
-    return p->vetor[p->topo];
-
+    return p->vetor[p->inicio];
 }
+
+void imprimeFila(Fila *p){
+  int i;
+  for(i=p->inicio; i<p->topo; i++){
+    printf("%d ", p->vetor[i]);
+  }
+  printf("\n");
+}
+
+int main() {
+
+    Fila minhafila;
+    int temp;
+
+    inicializaFila(&minhafila);
+
+    inserir(&minhafila, 19);
+    inserir(&minhafila, 28);
+    inserir(&minhafila, 30);
+    inserir(&minhafila, 12);
+    imprimeFila(&minhafila);
+    temp=remover(&minhafila);
+    temp=remover(&minhafila);
+    inserir(&minhafila, 51);
+    inserir(&minhafila, 48);
+    imprimeFila(&minhafila);
+
+    return 0;
+}
+
+
+
+
 
