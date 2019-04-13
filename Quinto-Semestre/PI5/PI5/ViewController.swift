@@ -14,9 +14,7 @@ enum Taxa {
 }
 
 class ViewController: UIViewController {
-    
-    @IBOutlet weak var imgNuvemGrande: UIImageView!
-    @IBOutlet weak var imgNuvemPequena: UIImageView!
+
     @IBOutlet weak var lblTaxa: UILabel!
     @IBOutlet weak var txtCompA: UITextField!
     @IBOutlet weak var txtQtdDias: UITextField!
@@ -30,11 +28,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblCB: UILabel!
     @IBOutlet weak var lblValorRetirado: UILabel!
     @IBOutlet weak var lblValorRecebido: UILabel!
+    @IBOutlet weak var agua: UIImageView!
+    @IBOutlet weak var imgNuvemPAzul: UIImageView!
+    @IBOutlet weak var imgNuvemPCinza: UIImageView!
+    
+    @IBOutlet weak var imgNuvemGCinza: UIImageView!
+    @IBOutlet weak var imgNuvemGAzul: UIImageView!
     
     
-    var imgsNuvens: [UIImage] = [UIImage(named: "nuvem1")!, UIImage(named: "nuvem2")!, UIImage(named: "nuvem3")!, UIImage(named: "nuvem4")!, UIImage(named: "nuvem5")!, UIImage(named: "nuvem6")!, UIImage(named: "nuvem7")!, UIImage(named: "nuvem8")!, UIImage(named: "nuvem9")!, UIImage(named: "nuvem10")!, UIImage(named: "nuvem9")!, UIImage(named: "nuvem8")!, UIImage(named: "nuvem7")!, UIImage(named: "nuvem6")!, UIImage(named: "nuvem5")!, UIImage(named: "nuvem4")!, UIImage(named: "nuvem3")!, UIImage(named: "nuvem2")!, UIImage(named: "nuvem1")!]
-    
-    var imgsNuvensPequena: [UIImage] = [UIImage(named: "nuvem11")!, UIImage(named: "nuvem12")!, UIImage(named: "nuvem13")!, UIImage(named: "nuvem14")!, UIImage(named: "nuvem15")!, UIImage(named: "nuvem16")!, UIImage(named: "nuvem17")!, UIImage(named: "nuvem18")!, UIImage(named: "nuvem19")!, UIImage(named: "nuvem20")!, UIImage(named: "nuvem19")!, UIImage(named: "nuvem18")!, UIImage(named: "nuvem17")!, UIImage(named: "nuvem16")!, UIImage(named: "nuvem15")!, UIImage(named: "nuvem14")!, UIImage(named: "nuvem13")!, UIImage(named: "nuvem12")!, UIImage(named: "nuvem11")!]
     
     var timer: Timer = Timer()
     var timerInterval: TimeInterval = 1.0
@@ -50,25 +51,52 @@ class ViewController: UIViewController {
     var tipoTempo = 1440
     var tipoTaxa = Taxa.minutos
     var isSimulating = false
+    var k = 20
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imgNuvemGrande.animationImages = imgsNuvens
-        imgNuvemGrande.animationDuration = 2.0
-        imgNuvemGrande.animationRepeatCount = 1000
-        imgNuvemGrande.startAnimating()
         
-        imgNuvemPequena.animationImages = imgsNuvensPequena
-        imgNuvemPequena.animationDuration = 2.0
-        imgNuvemPequena.animationRepeatCount = 1000
-        imgNuvemPequena.startAnimating()
+        animacoes()
+        
+        
+    }
+    
+    func animacoes() {
+        
+        UIView.animate(withDuration: 2, delay: 0.0, options: [.repeat, .autoreverse], animations: {
+            
+            
+            self.imgNuvemPAzul.frame.origin.x += 20
+            self.imgNuvemPCinza.frame.origin.x -= 20
+            self.agua.frame.origin.y -= 20
+            
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 2, delay: 0.25, options: [.repeat, .autoreverse], animations: {
+        
+            self.imgNuvemGAzul.frame.origin.x += CGFloat(self.k)
+            self.imgNuvemGCinza.frame.origin.x += CGFloat(self.k)
+            
+        }, completion:{(finished: Bool) in
+            
+            if self.isSimulating {
+                self.k = 100
+            } else {
+                self.k = 20
+            }
+            
+        })
+        
         
         
     }
     
     @IBAction func simular(_ sender: UIButton) {
+        
+        
+        self.k = 100
         
         guard !isSimulating else { return }
         guard txtCompA.text != "", txtQtdDias.text != "", txtTaxa.text != "" else { return }
@@ -181,6 +209,8 @@ class ViewController: UIViewController {
             self.cAView.frame.size.height += CGFloat(quant[minutos])
             self.cAView.frame.origin.y = 294
             minutos += 1
+            
+            
         }
         else if minutos > tipoTempo * qtdDias {
             stop()

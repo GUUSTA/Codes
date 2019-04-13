@@ -26,8 +26,22 @@
                                 <rect key="frame" x="873" y="-63" width="254" height="232"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VsY-cn-MzF">
+                                <rect key="frame" x="162" y="294" width="258" height="170"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.6470588235294118" green="0.94509803921568625" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tcz-Kx-l6C">
+                                <rect key="frame" x="162" y="294" width="258" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.18895208835601807" green="0.25924450159072876" blue="0.41691029071807861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="compartimento" translatesAutoresizingMaskIntoConstraints="NO" id="fWi-k6-6Vt">
                                 <rect key="frame" x="150" y="282" width="283" height="193"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="correnteAgua" translatesAutoresizingMaskIntoConstraints="NO" id="dl4-eY-Tno">
+                                <rect key="frame" x="157" y="295" width="270" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="compartimento" translatesAutoresizingMaskIntoConstraints="NO" id="Kyb-Jx-0qT">
@@ -48,16 +62,6 @@
                                 <color key="textColor" red="0.89803922179999995" green="0.89803922179999995" blue="0.89803922179999995" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VsY-cn-MzF">
-                                <rect key="frame" x="162" y="294" width="258" height="170"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.6470588235294118" green="0.94509803921568625" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tcz-Kx-l6C">
-                                <rect key="frame" x="162" y="294" width="258" height="1"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.18895208835601807" green="0.25924450159072876" blue="0.41691029071807861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iib-Jy-gEg">
                                 <rect key="frame" x="181" y="352" width="222" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -102,10 +106,6 @@
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="poros" translatesAutoresizingMaskIntoConstraints="NO" id="1UN-Fn-qnR">
                                 <rect key="frame" x="0.0" y="683" width="1096" height="178"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="agua" translatesAutoresizingMaskIntoConstraints="NO" id="12h-D9-RnY">
-                                <rect key="frame" x="0.0" y="720" width="1496" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cano" translatesAutoresizingMaskIntoConstraints="NO" id="K5P-6P-fU0">
@@ -234,14 +234,6 @@
                                 <color key="textColor" red="0.34509803921568627" green="0.24313725490196078" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nuvem11" translatesAutoresizingMaskIntoConstraints="NO" id="kaN-6g-qGj">
-                                <rect key="frame" x="198" y="46" width="90" height="73"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nuvem1" translatesAutoresizingMaskIntoConstraints="NO" id="2Lv-Tn-ugL">
-                                <rect key="frame" x="650" y="92" width="150" height="110"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="A5v-hO-IVG">
                                 <rect key="frame" x="868" y="546" width="128" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -262,16 +254,39 @@
                                 <color key="textColor" red="0.23921568630000001" green="0.37647058820000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nuvemPequena2" translatesAutoresizingMaskIntoConstraints="NO" id="Q22-4a-ZrK">
+                                <rect key="frame" x="615" y="88" width="97" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nuvemPequena1" translatesAutoresizingMaskIntoConstraints="NO" id="86V-ok-fcS">
+                                <rect key="frame" x="656" y="116" width="61" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="agua" translatesAutoresizingMaskIntoConstraints="NO" id="12h-D9-RnY">
+                                <rect key="frame" x="-7" y="742" width="1521" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nuvemGrande1" translatesAutoresizingMaskIntoConstraints="NO" id="20J-bY-jLZ">
+                                <rect key="frame" x="150" y="36" width="109" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nuvemGrande2" translatesAutoresizingMaskIntoConstraints="NO" id="jIW-mz-PGS">
+                                <rect key="frame" x="181" y="58" width="83" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <size key="freeformSize" width="1024" height="768"/>
                     <connections>
+                        <outlet property="agua" destination="12h-D9-RnY" id="2fa-t3-cIz"/>
                         <outlet property="cAView" destination="Tcz-Kx-l6C" id="Nxc-Oc-wfp"/>
                         <outlet property="cBView" destination="A6x-wY-0PD" id="6M6-OC-Wg7"/>
-                        <outlet property="imgNuvemGrande" destination="2Lv-Tn-ugL" id="Z36-eG-4Fx"/>
-                        <outlet property="imgNuvemPequena" destination="kaN-6g-qGj" id="dnM-1E-e6s"/>
+                        <outlet property="imgNuvemGAzul" destination="20J-bY-jLZ" id="Q67-fV-Ah7"/>
+                        <outlet property="imgNuvemGCinza" destination="jIW-mz-PGS" id="nQG-Tv-bGw"/>
+                        <outlet property="imgNuvemPAzul" destination="Q22-4a-ZrK" id="fiq-h2-ap3"/>
+                        <outlet property="imgNuvemPCinza" destination="86V-ok-fcS" id="zWX-IG-60i"/>
                         <outlet property="lblCA" destination="iib-Jy-gEg" id="TmT-0S-JHk"/>
                         <outlet property="lblCB" destination="1d7-Ja-hhM" id="XmI-H7-HXh"/>
                         <outlet property="lblTaxa" destination="TWO-vR-FU4" id="USx-X1-YSR"/>
@@ -296,8 +311,11 @@
         <image name="cano" width="118" height="28"/>
         <image name="ceu" width="1024" height="474"/>
         <image name="compartimento" width="283" height="193"/>
-        <image name="nuvem1" width="164" height="109"/>
-        <image name="nuvem11" width="161" height="109"/>
+        <image name="correnteAgua" width="275" height="18"/>
+        <image name="nuvemGrande1" width="154" height="96"/>
+        <image name="nuvemGrande2" width="118" height="74"/>
+        <image name="nuvemPequena1" width="118" height="74"/>
+        <image name="nuvemPequena2" width="154" height="96"/>
         <image name="parar" width="53" height="53"/>
         <image name="plantaMaior" width="62" height="47"/>
         <image name="plantinhaMenor" width="41" height="31"/>
