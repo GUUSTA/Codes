@@ -31,15 +31,25 @@ class ViewController: UIViewController {
     @IBOutlet weak var agua: UIImageView!
     @IBOutlet weak var imgNuvemPAzul: UIImageView!
     @IBOutlet weak var imgNuvemPCinza: UIImageView!
-    
     @IBOutlet weak var imgNuvemGCinza: UIImageView!
     @IBOutlet weak var imgNuvemGAzul: UIImageView!
+    @IBOutlet weak var imgAguaCano: UIView!
     
+    @IBOutlet weak var imgCeuDia: UIImageView!
     
+    @IBOutlet weak var imgCeuNoite: UIImageView!
+    
+    @IBOutlet weak var imgSol: UIImageView!
+    
+    @IBOutlet weak var imgLua: UIImageView!
     
     var timer: Timer = Timer()
     var timerInterval: TimeInterval = 1.0
     var minutos = 0
+    var minutosDia = 0
+    var horas = 0
+    var horasDia = 0
+    var isDia = true
     
     var valoresCA = [Double]()
     var valoresCB = [Double]()
@@ -65,6 +75,13 @@ class ViewController: UIViewController {
     
     func animacoes() {
         
+        UIView.animate(withDuration: 1, delay: 0.0, options: [.repeat], animations: {
+            
+            
+            self.imgAguaCano.frame.size.width += 117
+            
+        }, completion: nil)
+        
         UIView.animate(withDuration: 2, delay: 0.0, options: [.repeat, .autoreverse], animations: {
             
             
@@ -78,16 +95,17 @@ class ViewController: UIViewController {
         
             self.imgNuvemGAzul.frame.origin.x += CGFloat(self.k)
             self.imgNuvemGCinza.frame.origin.x += CGFloat(self.k)
-            
-        }, completion:{(finished: Bool) in
-            
-            if self.isSimulating {
-                self.k = 100
-            } else {
-                self.k = 20
-            }
-            
-        })
+        
+        }, completion:  nil)
+//        }, completion:{(finished: Bool) in
+//
+//            if self.isSimulating {
+//                self.k = 100
+//            } else {
+//                self.k = 20
+//            }
+//
+//        })
         
         
         
@@ -95,12 +113,9 @@ class ViewController: UIViewController {
     
     @IBAction func simular(_ sender: UIButton) {
         
-        
-        self.k = 100
-        
         guard !isSimulating else { return }
         guard txtCompA.text != "", txtQtdDias.text != "", txtTaxa.text != "" else { return }
-        
+        imgAguaCano.isHidden = false
         setup()
         qtdDias = Int((txtQtdDias.text! as NSString).intValue)
         calcula(compartimentoA: (txtCompA.text! as NSString).doubleValue, compartimentoB: 0.0, tipoTaxa: tipoTaxa, taxa: (txtTaxa.text! as NSString).doubleValue)
@@ -186,6 +201,10 @@ class ViewController: UIViewController {
     
     @IBAction func segmentTempoTapped(_ sender: UISegmentedControl) {
         
+        guard !isSimulating else { return }
+        
+        print("trocou")
+        
         let index = segControlTempo.selectedSegmentIndex
         switch index {
         case 0:
@@ -198,22 +217,44 @@ class ViewController: UIViewController {
     }
     
     @objc func update(){
-        if minutos <= tipoTempo * qtdDias {
-            lblTempo.text = "\(minutos) \(novoTipoTaxa)s"
-            lblCA.text = "\(valoresCA[minutos])"
-            lblCB.text = "\(valoresCB[minutos])"
-            lblValorRecebido.text = "+\(valoresCC[minutos])/\(novoTipoTaxa)"
-            lblValorRetirado.text = "-\(valoresCC[minutos])/\(novoTipoTaxa)"
-            self.cBView.frame.size.height -= CGFloat(quant[minutos])
-            self.cBView.frame.origin.y = 294
-            self.cAView.frame.size.height += CGFloat(quant[minutos])
-            self.cAView.frame.origin.y = 294
-            minutos += 1
-            
-            
-        }
-        else if minutos > tipoTempo * qtdDias {
-            stop()
+        
+        switch tipoTaxa {
+            case .horas:
+                trocaDia()
+                if horas <= tipoTempo * qtdDias {
+                    lblTempo.text = "\(horas) \(novoTipoTaxa)s"
+                    lblCA.text = "\(valoresCA[horas])"
+                    lblCB.text = "\(valoresCB[horas])"
+                    lblValorRecebido.text = "+\(valoresCC[horas])/\(novoTipoTaxa)"
+                    lblValorRetirado.text = "-\(valoresCC[horas])/\(novoTipoTaxa)"
+                    self.cBView.frame.size.height -= CGFloat(quant[horas])
+                    self.cBView.frame.origin.y = 294
+                    self.cAView.frame.size.height += CGFloat(quant[horas])
+                    self.cAView.frame.origin.y = 294
+                    horas += 1
+                    horasDia += 1
+                }
+                else if horas > tipoTempo * qtdDias {
+                    stop()
+                }
+            case .minutos:
+                trocaDia()
+                if minutos <= tipoTempo * qtdDias {
+                    lblTempo.text = "\(minutos) \(novoTipoTaxa)s"
+                    lblCA.text = "\(valoresCA[minutos])"
+                    lblCB.text = "\(valoresCB[minutos])"
+                    lblValorRecebido.text = "+\(valoresCC[minutos])/\(novoTipoTaxa)"
+                    lblValorRetirado.text = "-\(valoresCC[minutos])/\(novoTipoTaxa)"
+                    self.cBView.frame.size.height -= CGFloat(quant[minutos])
+                    self.cBView.frame.origin.y = 294
+                    self.cAView.frame.size.height += CGFloat(quant[minutos])
+                    self.cAView.frame.origin.y = 294
+                    minutos += 1
+                    minutosDia += 1
+                }
+                else if minutos > tipoTempo * qtdDias {
+                    stop()
+                }
         }
     }
     
@@ -221,5 +262,37 @@ class ViewController: UIViewController {
         isSimulating = false
         timer.invalidate()
         minutos = 0
+        horas = 0
+        imgAguaCano.isHidden = true
+    }
+    
+    func trocaDia() {
+        
+        switch tipoTaxa {
+        case .horas:
+            if horasDia <= 12 && 0 <= horasDia {
+                isDia = true
+            } else if horasDia > 12 && horasDia <= 24 {
+                isDia = false
+            }
+            else if horasDia > 24 {
+                horasDia = 0
+            }
+        case .minutos:
+            if minutosDia <= 720 && 0 <= minutosDia {
+                isDia = true
+            } else if minutosDia > 720 && minutosDia <= 1440 {
+                isDia = false
+            }
+            else if minutosDia > 24 {
+                horasDia = 0
+            }
+        }
+        
+        if isDia {
+            print("É DIA")
+        } else {
+            print("É NOITE")
+        }
     }
 }
