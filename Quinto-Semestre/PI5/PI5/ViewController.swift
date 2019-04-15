@@ -118,12 +118,12 @@ class ViewController: UIViewController {
         
         guard !isSimulating else { return }
         guard txtCompA.text != "", txtQtdDias.text != "", txtTaxa.text != "" else { return }
-        imgAguaCano.isHidden = false
         setup()
         qtdDias = Int((txtQtdDias.text! as NSString).intValue)
         calcula(compartimentoA: (txtCompA.text! as NSString).doubleValue, compartimentoB: 0.0, tipoTaxa: tipoTaxa, taxa: (txtTaxa.text! as NSString).doubleValue)
         
         startTimer()
+        imgAguaCano.isHidden = false
         isSimulating = true
     }
     @IBAction func cancelar(_ sender: UIButton) {
@@ -171,10 +171,14 @@ class ViewController: UIViewController {
     }
     
     func setup() {
+        self.isSimulating = true
+        self.isAnimating = false
         self.cBView.frame.size.height = 168.0
         self.cBView.frame.origin.y = 294
         self.cAView.frame.size.height = 1.0
         self.cAView.frame.origin.y = 294
+        self.imgCeuNoite.alpha = 1
+        self.imgLua.alpha = 1
         valoresCA.removeAll()
         valoresCB.removeAll()
         valoresCC.removeAll()
@@ -279,11 +283,45 @@ class ViewController: UIViewController {
                 diasM += 1
             }
         case .horas:
-            if horasH >= 24 {
+            if horasH > 23 {
                 horasH = 0
                 diasH += 1
+                isAnimating = false
             }
+            if horas == 13 {
+                isAnimating = false
+            }
+            fazAnimacao(horario: horasH)
+            
         }
+    }
+    
+    func fazAnimacao(horario: Int) {
+        guard isSimulating else { return }
+        guard !isAnimating else { return }
+        
+        if horario == 2 {
+            isAnimating = true
+            UIView.animate(withDuration: 10, delay: 0.0, options: [.curveEaseIn], animations: {
+                self.imgCeuNoite.alpha = 0
+                self.imgLua.alpha = 0
+            }, completion:{(finished: Bool) in
+                if finished {
+                    self.isAnimating = false
+                }
+            })
+        } else if horario == 13 {
+            isAnimating = true
+            UIView.animate(withDuration: 11, delay: 0.0, options: [.curveEaseIn], animations: {
+                self.imgCeuNoite.alpha = 1
+                self.imgLua.alpha = 1
+            }, completion:{(finished: Bool) in
+                if finished {
+                   self.isAnimating = false
+                }
+            })
+        }
+        
     }
 }
 
