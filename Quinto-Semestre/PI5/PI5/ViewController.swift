@@ -46,10 +46,13 @@ class ViewController: UIViewController {
     var timer: Timer = Timer()
     var timerInterval: TimeInterval = 1.0
     var minutos = 0
-    var minutosDia = 0
+    var minutosM = 0
+    var horasM = 0
+    var diasM = 0
     var horas = 0
-    var horasDia = 0
-    var isDia = true
+    var horasH = 0
+    var diasH = 0
+    var isAnimating = false
     
     var valoresCA = [Double]()
     var valoresCB = [Double]()
@@ -168,7 +171,6 @@ class ViewController: UIViewController {
     }
     
     func setup() {
-        
         self.cBView.frame.size.height = 168.0
         self.cBView.frame.origin.y = 294
         self.cAView.frame.size.height = 1.0
@@ -202,9 +204,6 @@ class ViewController: UIViewController {
     @IBAction func segmentTempoTapped(_ sender: UISegmentedControl) {
         
         guard !isSimulating else { return }
-        
-        print("trocou")
-        
         let index = segControlTempo.selectedSegmentIndex
         switch index {
         case 0:
@@ -217,82 +216,89 @@ class ViewController: UIViewController {
     }
     
     @objc func update(){
-        
         switch tipoTaxa {
-            case .horas:
-                trocaDia()
-                if horas <= tipoTempo * qtdDias {
-                    lblTempo.text = "\(horas) \(novoTipoTaxa)s"
-                    lblCA.text = "\(valoresCA[horas])"
-                    lblCB.text = "\(valoresCB[horas])"
-                    lblValorRecebido.text = "+\(valoresCC[horas])/\(novoTipoTaxa)"
-                    lblValorRetirado.text = "-\(valoresCC[horas])/\(novoTipoTaxa)"
-                    self.cBView.frame.size.height -= CGFloat(quant[horas])
-                    self.cBView.frame.origin.y = 294
-                    self.cAView.frame.size.height += CGFloat(quant[horas])
-                    self.cAView.frame.origin.y = 294
-                    horas += 1
-                    horasDia += 1
-                }
-                else if horas > tipoTempo * qtdDias {
-                    stop()
-                }
-            case .minutos:
-                trocaDia()
-                if minutos <= tipoTempo * qtdDias {
-                    lblTempo.text = "\(minutos) \(novoTipoTaxa)s"
-                    lblCA.text = "\(valoresCA[minutos])"
-                    lblCB.text = "\(valoresCB[minutos])"
-                    lblValorRecebido.text = "+\(valoresCC[minutos])/\(novoTipoTaxa)"
-                    lblValorRetirado.text = "-\(valoresCC[minutos])/\(novoTipoTaxa)"
-                    self.cBView.frame.size.height -= CGFloat(quant[minutos])
-                    self.cBView.frame.origin.y = 294
-                    self.cAView.frame.size.height += CGFloat(quant[minutos])
-                    self.cAView.frame.origin.y = 294
-                    minutos += 1
-                    minutosDia += 1
-                }
-                else if minutos > tipoTempo * qtdDias {
-                    stop()
-                }
+        case .minutos:
+            trocaDia()
+            if minutos <= tipoTempo * qtdDias {
+                lblTempo.text = "\(diasM) dias \(horasM) horas \(minutosM) minutos"
+                lblCA.text = "\(valoresCA[minutos])"
+                lblCB.text = "\(valoresCB[minutos])"
+                lblValorRecebido.text = "+\(valoresCC[minutos])/\(novoTipoTaxa)"
+                lblValorRetirado.text = "-\(valoresCC[minutos])/\(novoTipoTaxa)"
+                self.cBView.frame.size.height -= CGFloat(quant[minutos])
+                self.cBView.frame.origin.y = 294
+                self.cAView.frame.size.height += CGFloat(quant[minutos])
+                self.cAView.frame.origin.y = 294
+                minutosM += 1
+                minutos += 1
+            } else if minutos > tipoTempo * qtdDias  {
+                stop()
+            }
+        case .horas:
+            trocaDia()
+            if horas <= tipoTempo * qtdDias {
+                lblTempo.text = "\(diasH) dias \(horasH) horas"
+                lblCA.text = "\(valoresCA[horas])"
+                lblCB.text = "\(valoresCB[horas])"
+                lblValorRecebido.text = "+\(valoresCC[horas])/\(novoTipoTaxa)"
+                lblValorRetirado.text = "-\(valoresCC[horas])/\(novoTipoTaxa)"
+                self.cBView.frame.size.height -= CGFloat(quant[horas])
+                self.cBView.frame.origin.y = 294
+                self.cAView.frame.size.height += CGFloat(quant[horas])
+                self.cAView.frame.origin.y = 294
+                horasH += 1
+                horas += 1
+            } else if horas > tipoTempo * qtdDias  {
+                stop()
+            }
         }
     }
     
     func stop() {
         isSimulating = false
+        imgAguaCano.isHidden = true
         timer.invalidate()
         minutos = 0
         horas = 0
-        imgAguaCano.isHidden = true
+        minutosM = 0
+        horasM = 0
+        diasM = 0
+        horasH = 0
+        diasH = 0
     }
     
     func trocaDia() {
-        
         switch tipoTaxa {
-        case .horas:
-            if horasDia <= 12 && 0 <= horasDia {
-                isDia = true
-            } else if horasDia > 12 && horasDia <= 24 {
-                isDia = false
-            }
-            else if horasDia > 24 {
-                horasDia = 0
-            }
         case .minutos:
-            if minutosDia <= 720 && 0 <= minutosDia {
-                isDia = true
-            } else if minutosDia > 720 && minutosDia <= 1440 {
-                isDia = false
+            if minutosM >= 60 {
+                minutosM = 0
+                horasM += 1
             }
-            else if minutosDia > 24 {
-                horasDia = 0
+            if horasM >= 24 {
+                horasM = 0
+                diasM += 1
             }
-        }
-        
-        if isDia {
-            print("É DIA")
-        } else {
-            print("É NOITE")
+        case .horas:
+            if horasH >= 24 {
+                horasH = 0
+                diasH += 1
+            }
         }
     }
 }
+
+
+/*
+ Minuto:
+    - A cada 60 minutos, vira 1 hora
+    - A cada 12 horas set valor se é dia ou não
+    - A cada 24 horas vira 1 dia
+    - Caso for dia, faz animacao para ir para noite
+    - Caso for noite, faz animacao para ir de dia
+ Horas:
+    - A cada 12 horas set valor se é dia ou não
+    - A cada 24 horas vira 1 dia
+     - Caso for dia, faz animacao para ir para noite
+     - Caso for noite, faz animacao para ir de dia
+ */
+
