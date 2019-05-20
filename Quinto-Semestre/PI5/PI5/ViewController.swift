@@ -86,6 +86,10 @@ class ViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     @IBAction func sliderDias(_ sender: UISlider) {
         lblDias.text = "\(round(Double(sender.value) * 1)/1) dias"
         self.qtdDias = round(Double(sender.value) * 1)/1
