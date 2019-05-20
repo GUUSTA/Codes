@@ -52,18 +52,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var txtQtdCompA: UITextField!
     
     @IBOutlet weak var txtTaxaA: UITextField!
+    @IBOutlet weak var lblDias: UILabel!
     
-    
-//    var timer: Timer = Timer()
-//    var timerInterval: TimeInterval = 1.0
-//    var minutos = 0
-//    var minutosM = 0
-//    var horasM = 0
-//    var diasM = 0
-//    var horas = 0
-//    var horasH = 0
-//    var diasH = 0
-//    var isAnimating = false
+    var timer: Timer = Timer()
+    var timerInterval: TimeInterval = 1.0
+    var segundos = 0
+    var isAnimating = false
     
     var valoresCA = [Double]()
     var valoresCB = [Double]()
@@ -88,16 +82,8 @@ class ViewController: UIViewController {
     var arrayTxtQtd = [UITextField]()
     var qtdDias = 1.0
     var h = 0.001
-    
-//    var novoTipoTaxa = "Minutos"
-    var cA = 0.0
-    var cB = 0.0
-    var cC = 0.0
-//    var tipoTempo = 1440
-//    var tipoTaxa = Taxa.minutos
     var isSimulating = false
     var k = 20
-    let e = 2.718281828459045235360287
     
     
     
@@ -129,6 +115,12 @@ class ViewController: UIViewController {
         arrayLabelsValores.append(lblCA)
         
     }
+    
+    @IBAction func sliderDias(_ sender: UISlider) {
+        lblDias.text = "\(round(Double(sender.value) * 1)/1) dias"
+        self.qtdDias = round(Double(sender.value) * 1)/1
+    }
+    
     
     @IBAction func removerCompartimento(_ sender: UIButton) {
         
@@ -306,7 +298,7 @@ class ViewController: UIViewController {
             let k4 = fazFormula(arrayComp: copyArray, qtd: h, arrayK: k3)
             copyArray = determinaNovoValor(arrayComp: copyArray, h: h, k1: k1, k2: k2, k3: k3, k4: k4)
             j += h
-            print("\(j) ", copyArray)
+            //print("\(j) ", copyArray)
             
             retornaSoma(array: copyArray)
         }
@@ -326,7 +318,7 @@ class ViewController: UIViewController {
         for item in array {
             soma += item
         }
-        print(soma)
+        //print(soma)
     }
     
     func determinaDiferenca() {
@@ -379,9 +371,29 @@ class ViewController: UIViewController {
         
     }
     
+    func verificaTxtField() -> Bool {
+        
+        for txt in arrayTxtQtd {
+            if txt.text == "" {
+                return false
+            }
+        }
+        
+        for i in 0...matrizTxtTaxa.count - 1 {
+            for j in 0...matrizTxtTaxa.count - 1 {
+                if matrizTxtTaxa[i][j].text == ""{
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
+    
     @IBAction func simular(_ sender: UIButton) {
         
         guard !isSimulating else { return }
+        guard verificaTxtField() else { return }
         //guard txtCompA.text != "", txtQtdDias.text != "", txtTaxa.text != "" else { return }
         setup()
         formataArrayTaxas()
@@ -389,21 +401,10 @@ class ViewController: UIViewController {
         atribuirValores()
         determinaDiferenca()
         anima()
+        startTimer()
+        //animacaCeu()
         isSimulating = true
-        
-        //setup()
-        //fazDuracao()
-        //print(duracao)
-        //qtdDias = (txtQtdDias.text! as NSString).doubleValue
-        //calcula(compartimentoA: (txtCompA.text! as NSString).doubleValue, compartimentoB: 0.0, taxa: (txtTaxa.text! as NSString).doubleValue, qtdDias: qtdDias)
-        //startTimer()
-        //animaCompartimentos()
-        //imgAguaCano.isHidden = false
-        //isSimulating = true
     }
-//    @IBAction func cancelar(_ sender: UIButton) {
-//        stop()
-//    }
     
     func atribuirValores() {
         let value: Double = 10000
@@ -422,69 +423,39 @@ class ViewController: UIViewController {
         return diferenca
     }
     
-    func calcula(compartimentoA: Double, compartimentoB: Double, taxa: Double, qtdDias: Int) {
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: timerInterval, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         
-        cA = compartimentoA
-        cB = compartimentoB
-        cC = 0.0
-        let novaTaxa = (taxa * Double(qtdDias)) * -1
-        
-        
-//        switch tipoTaxa {
-//        case .minutos:
-//            tipoTempo = 1440
-//            novaTaxa = taxa/Double(tipoTempo)
-//            novoTipoTaxa = "Minuto"
-//        case .horas:
-//            tipoTempo = 24
-//            novaTaxa = taxa/Double(tipoTempo)
-//            novoTipoTaxa = "Hora"
-//        }
-        
-        cC = cA
-        cA = cA * pow(e, novaTaxa)
-        cB = cC - cA
-    
-        //diferenca = regraDeTres(cA: cC, cC: cB)
-        
-//        for i in 0...tipoTempo * qtdDias {
-//            if i == 0 {
-//                valoresCA.append(cA)
-//                valoresCB.append(cB)
-//                valoresCC.append(cC)
-//                quant.append(0.0)
-//            } else {
-//                cC = cA * novaTaxa
-//                cA = cA - cC
-//                cB = cB + cC
-//                valoresCA.append(cA)
-//                valoresCB.append(cB)
-//                valoresCC.append(cC)
-//                quant.append(regraDeTres(cA: compartimentoA, cC: cC))
-//            }
-//        }
     }
     
-//    func startTimer() {
-//        timer = Timer.scheduledTimer(timeInterval: timerInterval, target: self, selector: #selector(update), userInfo: nil, repeats: true)
-//    }
+    @objc func update() {
+        
+        if segundos < Int(qtdDias) {
+            if !isAnimating {
+                self.isAnimating = true
+                UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .autoreverse], animations: {
+                    self.imgCeuNoite.alpha = 0
+                    self.imgLua.alpha = 0
+                }, completion:{(finished: Bool) in
+                    if finished {
+                        self.imgCeuNoite.alpha = 1
+                        self.imgLua.alpha = 1
+                        self.isAnimating = false
+                        self.segundos += 1
+                    }
+                })
+            }
+        } else {
+            timer.invalidate()
+            isSimulating = false
+            isAnimating = false
+            segundos = 0
+        }
+    }
     
     func anima() {
-        UIView.animate(withDuration: qtdDias, delay: 0.0, options: [.curveEaseIn, .autoreverse], animations: {
-            self.imgCeuNoite.alpha = 0
-            self.imgLua.alpha = 0
-        }, completion:{(finished: Bool) in
-            if finished {
-                self.imgCeuNoite.alpha = 1
-                self.imgLua.alpha = 1
-                self.isSimulating = false
-            }
-        })
-        
-        
         for i in 0...compartimentos.count - 1 {
-            UIView.animate(withDuration: qtdDias * 2, animations: {
-                
+            UIView.animate(withDuration: qtdDias * 3, animations: {
                 if i == 0 {
                     print("\(i) ", CGFloat(self.regraDeTres(cA: 1000.0, cC: -1 * self.diferencas[i], index: i)))
                     self.arrayCViews[i].frame.size.height += CGFloat(self.regraDeTres(cA: self.copiaCompartimentos[i], cC: self.diferencas[i], index: i))
@@ -492,21 +463,9 @@ class ViewController: UIViewController {
                 else {
                     print("\(i) ", CGFloat(self.regraDeTres1(cA: 1000.0, cC: -1 * self.diferencas[i], index: i)))
                     self.arrayCViews[i].frame.size.height -= CGFloat(self.regraDeTres1(cA: self.copiaCompartimentos.first! + self.copiaCompartimentos[i], cC: -1 * self.diferencas[i], index: i))
-                
                 }
-                
-                
             })
-            
-            //print(self.arrayCViews[i].frame.size.height)
         }
-        
-        
-        
-        //        UIView.animate(withDuration: 3, animations: {
-        //            self.arrayCViews[0].frame.size.height = CGFloat(self.compartimentos[0])
-        //        })
-        
     }
     
 //    func animaCompartimentos() {
