@@ -66,7 +66,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         animacoes()
         btnSimular.layer.cornerRadius = 5
         btnAdicionar.layer.cornerRadius = self.btnAdicionar.frame.width/2

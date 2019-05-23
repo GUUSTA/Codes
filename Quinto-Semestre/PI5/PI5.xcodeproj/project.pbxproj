@@ -60,12 +60,12 @@
 			children = (
 				EC2554A3225E61EC006438A8 /* AppDelegate.swift */,
 				EC2554A5225E61EC006438A8 /* ViewController.swift */,
+				EC3903C52292C1D300DFB5D1 /* HomeViewController.swift */,
+				EC3903C72292D60400DFB5D1 /* MetodosViewController.swift */,
 				EC2554A7225E61EC006438A8 /* Main.storyboard */,
 				EC40146C22608D0A00EAB029 /* Assets.xcassets */,
 				EC2554AC225E61EE006438A8 /* LaunchScreen.storyboard */,
 				EC2554AF225E61EE006438A8 /* Info.plist */,
-				EC3903C52292C1D300DFB5D1 /* HomeViewController.swift */,
-				EC3903C72292D60400DFB5D1 /* MetodosViewController.swift */,
 			);
 			path = PI5;
 			sourceTree = "<group>";
