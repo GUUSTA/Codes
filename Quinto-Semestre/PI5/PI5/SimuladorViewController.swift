@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-class ViewController: UIViewController {
-
+class SimuladorViewController: UIViewController {
+    
     @IBOutlet weak var btnSimular: UIButton!
     @IBOutlet weak var lblTempo: UILabel!
     @IBOutlet weak var cAView: UIView!
@@ -32,6 +32,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var txtTaxaA: UITextField!
     @IBOutlet weak var lblDias: UILabel!
     
+    @IBOutlet weak var segmentedVelocity: UISegmentedControl!
+    
+    @IBOutlet weak var sliderDias: UISlider!
+    
+    @IBOutlet weak var btnReset: UIButton!
+    
     var timer: Timer = Timer()
     var timerInterval: TimeInterval = 1.0
     var segundos = 0
@@ -43,13 +49,10 @@ class ViewController: UIViewController {
     
     let alfabeto: [String] = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
     var matrizValores: [[Double]] = [[Double]]()
-    var compartimentos: [Double] = [1000, 0, 0]
     var diferencas: [Double] = []
     var copiaCompartimentos: [Double] = []
-    var taxas: [[Double]] = [ [-0.1, 0.1, 0.0],
-                              [0.0, -0.05, 0.05],
-                              [0.01, 0.0, -0.01]]
-
+    
+    
     var arrayLabelsValores = [UILabel]()
     var arrayLabels = [UILabel]()
     var arrayViews = [UIView]()
@@ -57,16 +60,56 @@ class ViewController: UIViewController {
     var arrayImageViews = [UIImageView]()
     var matrizTxtTaxa = [[UITextField]]()
     var arrayTxtQtd = [UITextField]()
-    var qtdDias = 1.0
-    var h = 0.001
+    
+    
     var isSimulating = false
     var k = 20
     
+    var velocidade = 1
+    var compartimentos: [Double] = [1000, 0, 0]
+    var qtdDias = 1.0
+    var h = 0.001
+    var taxas: [[Double]] = [ [-0.1, 0.1, 0.0],
+                              [0.0, -0.05, 0.05],
+                              [0.01, 0.0, -0.01]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        didLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    @IBAction func reset(_ sender: UIButton) {
         
+        for i in 0...compartimentos.count - 1 {
+            self.arrayCViews[i].layer.removeAllAnimations()
+        }
+        
+        timer.invalidate()
+        isSimulating = false
+        isAnimating = false
+        segundos = 0
+        habilitarBtns()
+        self.imgLua.layer.removeAllAnimations()
+        self.imgCeuNoite.layer.removeAllAnimations()
+        setup()
+        
+        
+    }
+    
+    
+    @IBAction func sliderDias(_ sender: UISlider) {
+        guard !isSimulating else { return }
+        lblDias.text = "\(round(Double(sender.value) * 1)/1) dias"
+        self.qtdDias = round(Double(sender.value) * 1)/1
+    }
+    
+    func didLoad() {
         animacoes()
+        btnReset.layer.cornerRadius = 5
         btnSimular.layer.cornerRadius = 5
         btnAdicionar.layer.cornerRadius = self.btnAdicionar.frame.width/2
         btnRemover.layer.cornerRadius = self.btnRemover.frame.width/2
@@ -82,20 +125,12 @@ class ViewController: UIViewController {
         arrayCViews.append(cAView)
         arrayImageViews.append(cAImageView)
         arrayLabelsValores.append(lblCA)
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    @IBAction func sliderDias(_ sender: UISlider) {
-        lblDias.text = "\(round(Double(sender.value) * 1)/1) dias"
-        self.qtdDias = round(Double(sender.value) * 1)/1
     }
     
     
     @IBAction func removerCompartimento(_ sender: UIButton) {
+        
+        guard !isSimulating else { return }
         
         guard arrayViews.count > 1 else { return }
         
@@ -126,6 +161,8 @@ class ViewController: UIViewController {
     
     
     @IBAction func adicionarCompartimento(_ sender: UIButton) {
+        
+        guard !isSimulating else { return }
         
         let novoCView = UIView(frame: CGRect(x: arrayCViews.last!.frame.origin.x + 190, y: arrayViews.first!.frame.origin.y, width: 144, height: 96))
         novoCView.backgroundColor = arrayCViews.last?.backgroundColor
@@ -206,7 +243,6 @@ class ViewController: UIViewController {
         txtField.clearButtonMode = UITextField.ViewMode.whileEditing
         txtField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         txtField.textAlignment = NSTextAlignment.center
-        txtField.text = "0"
     }
     
     func configuraTxtFieldIniciais(txtField: UITextField) {
@@ -275,7 +311,8 @@ class ViewController: UIViewController {
             let k4 = fazFormula(arrayComp: copyArray, qtd: h, arrayK: k3)
             copyArray = determinaNovoValor(arrayComp: copyArray, h: h, k1: k1, k2: k2, k3: k3, k4: k4)
             j += h
-            if round(j * 1)/1 == round(j * 100000000000)/100000000000 {
+            let value = 100000000000.0
+            if round(j * 1)/1 == round(j * value)/value {
                 var possui = false
                 for array in matrizValores {
                     if copyArray.first == array.first {
@@ -334,10 +371,10 @@ class ViewController: UIViewController {
         }, completion: nil)
         
         UIView.animate(withDuration: 2, delay: 0.25, options: [.repeat, .autoreverse], animations: {
-        
+            
             self.imgNuvemGAzul.frame.origin.x += CGFloat(self.k)
             self.imgNuvemGCinza.frame.origin.x += CGFloat(self.k)
-        
+            
         }, completion:  nil)
     }
     
@@ -361,17 +398,47 @@ class ViewController: UIViewController {
     }
     
     @IBAction func simular(_ sender: UIButton) {
-        
         guard !isSimulating else { return }
         guard verificaTxtField() else { return }
+        
+        desabilitarBtns()
         setup()
         formataArrayTaxas()
         calcula()
-        //atribuirValores()
         determinaDiferenca()
         anima()
         startTimer()
         isSimulating = true
+    }
+    
+    
+    
+    func habilitarBtns() {
+
+        sliderDias.alpha = 1
+        sliderDias.isUserInteractionEnabled = true
+        btnRemover.alpha = 1
+        btnRemover.isUserInteractionEnabled = true
+        btnSimular.alpha = 1
+        btnSimular.isUserInteractionEnabled = true
+        btnAdicionar.alpha = 1
+        btnAdicionar.isUserInteractionEnabled = true
+        segmentedVelocity.alpha = 1
+        segmentedVelocity.isUserInteractionEnabled = true
+    }
+    
+    func desabilitarBtns() {
+
+        sliderDias.alpha = 0.6
+        sliderDias.isUserInteractionEnabled = false
+        btnRemover.alpha = 0.6
+        btnRemover.isUserInteractionEnabled = false
+        btnSimular.alpha = 0.6
+        btnSimular.isUserInteractionEnabled = false
+        btnAdicionar.alpha = 0.6
+        btnAdicionar.isUserInteractionEnabled = false
+        segmentedVelocity.alpha = 0.6
+        segmentedVelocity.isUserInteractionEnabled = false
     }
     
     func atribuirValores() {
@@ -392,7 +459,7 @@ class ViewController: UIViewController {
     }
     
     func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: timerInterval, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: timerInterval/Double(velocidade), target: self, selector: #selector(update), userInfo: nil, repeats: true)
         
     }
     
@@ -401,7 +468,7 @@ class ViewController: UIViewController {
         if segundos < Int(qtdDias) {
             if !isAnimating {
                 self.isAnimating = true
-                UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .autoreverse], animations: {
+                UIView.animate(withDuration: timerInterval/Double(velocidade), delay: 0.0, options: [.curveLinear, .autoreverse], animations: {
                     self.imgCeuNoite.alpha = 0
                     self.imgLua.alpha = 0
                 }, completion:{(finished: Bool) in
@@ -414,9 +481,9 @@ class ViewController: UIViewController {
                 })
                 
                 for j in 0...matrizValores[segundos].count - 1 {
-                    arrayLabelsValores[j].text = "\(round(matrizValores[segundos][j] * 100000)/100000)"
+                    print(matrizValores.count)
+                    arrayLabelsValores[j].text = "\(round(matrizValores[segundos][j] * 1000000)/1000000)"
                 }
-                
                 lblTempo.text = "Dia \(segundos + 1)"
             }
         } else {
@@ -424,12 +491,13 @@ class ViewController: UIViewController {
             isSimulating = false
             isAnimating = false
             segundos = 0
+            habilitarBtns()
         }
     }
     
     func anima() {
         for i in 0...compartimentos.count - 1 {
-            UIView.animate(withDuration: qtdDias * 3, animations: {
+            UIView.animate(withDuration:(qtdDias * 3)/Double(velocidade), animations: {
                 if i == 0 {
                     print("\(i) ", CGFloat(self.regraDeTres(cA: 1000.0, cC: -1 * self.diferencas[i], index: i)))
                     self.arrayCViews[i].frame.size.height += CGFloat(self.regraDeTres(cA: self.copiaCompartimentos[i], cC: self.diferencas[i], index: i))
@@ -459,5 +527,19 @@ class ViewController: UIViewController {
         self.matrizValores = []
         self.imgCeuNoite.alpha = 1
         self.imgLua.alpha = 1
+    }
+    
+    @IBAction func mudaVelocidade(_ sender: UISegmentedControl) {
+        guard !isSimulating else { return }
+        switch sender.selectedSegmentIndex {
+        case 0:
+            velocidade = 1
+        case 1:
+            velocidade = 10
+        case 2:
+            velocidade = 50
+        default:
+            break
+        }
     }
 }

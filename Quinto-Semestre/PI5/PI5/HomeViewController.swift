@@ -38,8 +38,6 @@ class HomeViewController: UIViewController {
             self.imgNuvemPAzul.frame.origin.x += 20
             self.imgNuvemPCinza.frame.origin.x -= 20
             self.agua.frame.origin.y -= 20
-//            self.btnIniciar.frame.size.width += 10
-//            self.btnIniciar.frame.size.height += 10
 //
         }, completion: nil)
         
@@ -50,16 +48,4 @@ class HomeViewController: UIViewController {
             
         }, completion:  nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

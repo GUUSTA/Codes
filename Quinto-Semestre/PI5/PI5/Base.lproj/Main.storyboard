@@ -155,10 +155,10 @@
             </objects>
             <point key="canvasLocation" x="727.87769784172667" y="21.582733812949641"/>
         </scene>
-        <!--View Controller-->
+        <!--Simulador View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="simulador" id="BYZ-38-t0r" customClass="ViewController" customModule="PI5" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="simulador" id="BYZ-38-t0r" customClass="SimuladorViewController" customModule="PI5" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -265,16 +265,16 @@
                                 <rect key="frame" x="181" y="58" width="83" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PaI-xk-DQv">
-                                <rect key="frame" x="408" y="704" width="169" height="25"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGa-fM-6AP">
+                                <rect key="frame" x="492" y="703" width="101" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.92264866828918457" green="0.73026925325393677" blue="0.08622673898935318" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92264866830000003" green="0.73026925330000003" blue="0.086226738989999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="17"/>
-                                <state key="normal" title="SIMULAR">
+                                <state key="normal" title="RESET">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="simular:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3IB-qC-soX"/>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fgy-e1-s7a"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plantaMaior" translatesAutoresizingMaskIntoConstraints="NO" id="V5O-jS-oGb">
@@ -309,7 +309,7 @@
                                 <rect key="frame" x="979" y="444" width="40.5" height="30.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="5aw-jd-WbC">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="22" translatesAutoresizingMaskIntoConstraints="NO" id="5aw-jd-WbC">
                                 <rect key="frame" x="27" y="707" width="262" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.92264866830000003" green="0.73026925330000003" blue="0.086226738989999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -326,6 +326,32 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rqA-34-dca">
+                                <rect key="frame" x="674" y="701" width="321" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.60865813493728638" green="0.36328142881393433" blue="0.36474436521530151" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <segments>
+                                    <segment title="1x"/>
+                                    <segment title="10x"/>
+                                    <segment title="50x"/>
+                                </segments>
+                                <color key="tintColor" red="0.92264866830000003" green="0.73026925330000003" blue="0.086226738989999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="mudaVelocidade:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ubp-6T-lTP"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PaI-xk-DQv">
+                                <rect key="frame" x="379" y="703" width="101" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.92264866828918457" green="0.73026925325393677" blue="0.08622673898935318" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="17"/>
+                                <state key="normal" title="SIMULAR">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="simular:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3IB-qC-soX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -336,6 +362,7 @@
                         <outlet property="agua" destination="12h-D9-RnY" id="2fa-t3-cIz"/>
                         <outlet property="btnAdicionar" destination="Uqm-nG-uuy" id="YfC-j9-I2H"/>
                         <outlet property="btnRemover" destination="HnW-mP-8ur" id="MpL-KV-WWl"/>
+                        <outlet property="btnReset" destination="gGa-fM-6AP" id="Ewe-Uv-voG"/>
                         <outlet property="btnSimular" destination="PaI-xk-DQv" id="lvW-7x-0Vo"/>
                         <outlet property="cAImageView" destination="fWi-k6-6Vt" id="TvE-r4-2Ye"/>
                         <outlet property="cAView" destination="Tcz-Kx-l6C" id="Nxc-Oc-wfp"/>
@@ -351,6 +378,8 @@
                         <outlet property="lblCompartimentoA" destination="dDC-6T-dx6" id="XeA-hZ-P8J"/>
                         <outlet property="lblDias" destination="3Uy-4c-Kc4" id="BBy-tP-SnN"/>
                         <outlet property="lblTempo" destination="Vra-lq-M0O" id="zt8-OG-GF3"/>
+                        <outlet property="segmentedVelocity" destination="rqA-34-dca" id="brr-DN-jDY"/>
+                        <outlet property="sliderDias" destination="5aw-jd-WbC" id="O1v-aU-sB6"/>
                         <outlet property="txtQtdCompA" destination="Gye-tE-rDh" id="KhQ-hF-Ijd"/>
                         <outlet property="txtTaxaA" destination="arL-Xk-P2Z" id="0R3-MI-3vS"/>
                     </connections>
