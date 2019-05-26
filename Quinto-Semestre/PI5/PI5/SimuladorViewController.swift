@@ -103,7 +103,7 @@ class SimuladorViewController: UIViewController {
     
     @IBAction func sliderDias(_ sender: UISlider) {
         guard !isSimulating else { return }
-        lblDias.text = "\(round(Double(sender.value) * 1)/1) dias"
+        lblDias.text = "\(Int(round(Double(sender.value) * 1)/1)) dias"
         self.qtdDias = round(Double(sender.value) * 1)/1
     }
     
@@ -328,7 +328,9 @@ class SimuladorViewController: UIViewController {
             
             retornaSoma(array: copyArray)
         }
-        print("Final: ", copyArray)
+        
+        print("Final: \(copyArray)")
+        print("Qtd valores: \(matrizValores.count)")
         compartimentos = copyArray
     }
     
@@ -481,7 +483,6 @@ class SimuladorViewController: UIViewController {
                 })
                 
                 for j in 0...matrizValores[segundos].count - 1 {
-                    print(matrizValores.count)
                     arrayLabelsValores[j].text = "\(round(matrizValores[segundos][j] * 1000000)/1000000)"
                 }
                 lblTempo.text = "Dia \(segundos + 1)"
