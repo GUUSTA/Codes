@@ -1,7 +1,6 @@
 import UIKit
 import Darwin
 
-
 var L = 100.0
 let e = 2.718281828459045
 let R = 35.0
@@ -29,6 +28,9 @@ var V = Array(repeating: Array(repeating: 37.0, count: 11), count: 1001)
 
 let spaceLimit = 1 + (100.0 / 10.0)
 let daysToRun = 1 + qtdInteracoes/deltaT
+
+var voltage = 0.0
+var n = 0.3176, m = 0.0529, h = 0.5961
 
 func determinaV(x: Double) -> Double {
     return 10 * pow(e, (-0.2 * x))
@@ -75,22 +77,7 @@ func determinaDhDt(Vij: Double, prev_h: Double) -> Double {
     return (determinaAh(Vij: Vij)*(1 - prev_h) - determinaBh(Vij: Vij)*prev_h) * deltaT + prev_h
 }
 
-
-// valore para  1 linha
-for col in 0...V[0].count - 1 {
-    let space = deltaX * col
-    V[0][col] = 10 * pow(e, (-0.2 * Double(space)))
-}
-
-
-
-// DEFININDO FRONTEIRAS
-for line in 0...V.count - 1 {
-    V[line][0] = -65.002
-    V[line][10] = 0.0
-}
-
-
+// DETERMINA ALFHAS E BETAS
 func computeAlphasAndBetas(V_i_j: Double, n: Double, m: Double, h: Double) -> Double {
     let firstPart = gK * pow(n, 4) * (V_i_j - vK)
     let secoundPart = gNA * pow(m, 3) * h * (V_i_j - vNA)
@@ -98,21 +85,26 @@ func computeAlphasAndBetas(V_i_j: Double, n: Double, m: Double, h: Double) -> Do
     return firstPart + secoundPart + thirdPart
 }
 
+// FAZ MALHA
 func computeNextVi(V_prevI_j: Double, V_i_j: Double, V_nextI_j: Double, n: Double, m: Double, h: Double) -> Double {
     let firstPart = (V_prevI_j - 2 * V_i_j + V_nextI_j) / (pow(Double(deltaX), 2))
     let secoundPart = firstPart * A / (2 * R) - computeAlphasAndBetas(V_i_j: V_i_j, n: n, m: m, h: h)
     let thirdPart = secoundPart * (deltaT / C) + V_i_j
-    
-    //print("a: \(V_prevI_j), b: \(V_i_j), c: \(V_nextI_j)")
-    
-    //print("1: \(firstPart), 2: \(secoundPart), 3: \(thirdPart)")
     return thirdPart
 }
 
-var voltage = 0.0
+// DEFINE VALORES PARA 1º Linha
+for col in 0...V[0].count - 1 {
+    let space = deltaX * col
+    V[0][col] = 10 * pow(e, (-0.2 * Double(space)))
+}
 
-var n = 0.3176, m = 0.0529, h = 0.5961
-//print("line: \(0) - N: \(n0), M: \(m0), H: \(h0)")
+// DEFININDO FRONTEIRAS
+for line in 0...V.count - 1 {
+    V[line][0] = -65.002
+    V[line][10] = 0.0
+}
+
 for line in 1...V.count - 1 {
     for col in 1...V[0].count - 2 {
         V[line][col] = computeNextVi(V_prevI_j: V[line - 1][col - 1], V_i_j: V[line - 1][col], V_nextI_j: V[line - 1][col + 1], n: n, m: m, h: h)
@@ -122,19 +114,8 @@ for line in 1...V.count - 1 {
     n = determinaDnDt(Vij: voltage, prev_n: n)
     m = determinaDmDt(Vij: voltage, prev_m: m)
     h = determinaDhDt(Vij: voltage, prev_h: h)
-    
-    //print("line: \(line) - Voltage: \(voltage) - N: \(n), M: \(m), H: \(h)")
-    
 }
-
-//print(V[2\])
-
-//for line in 0...V.count - 1 {
-//    for col in 0...V[0].count - 1 {
-//        print("\(line);\(col);\(V[line][col])")
-//    }
-//}
-
+// IMPRIME VALORES
 for i in 0...50{
     print("\(i);", terminator:"")
 }
